@@ -1,14 +1,28 @@
-import { useState } from 'react'
-
-
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyle } from './global'
+import { defaultTheme } from './styles'
+import { BrowserRouter } from 'react-router-dom'
+import { Router } from './routes'
+import { CoffeeContextProvider } from '@/providers/CoffeeContext'
+import { CartContextProvider } from '@/providers/CartContext'
+import { ToastContainer } from 'react-toastify'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-
-    </div>
+    <ThemeProvider theme={defaultTheme}>
+      <SkeletonTheme baseColor="#ebebeb" highlightColor="#f5f5f5">
+        <BrowserRouter>
+          <CoffeeContextProvider>
+            <CartContextProvider>
+              <Router />
+              <ToastContainer toastClassName="foo" autoClose={3000} />
+            </CartContextProvider>
+          </CoffeeContextProvider>
+        </BrowserRouter>
+      </SkeletonTheme>
+      <GlobalStyle />
+    </ThemeProvider>
   )
 }
 
